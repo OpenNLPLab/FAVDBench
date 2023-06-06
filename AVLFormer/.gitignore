@@ -1,0 +1,22 @@
+src/evalcap/cider
+src/evalcap/cider/*
+src/evalcap/coco_caption
+src/evalcap/coco_caption/*
+src/evalcap/coco-caption
+src/evalcap/coco-caption/*
+
+# ignore dataset
+datasets/meta
+datasets/meta/*
+datasets/metadata
+datasets/metadata/*
+datasets/videos
+datasets/videos/*
+datasets/audios
+datasets/audios/*
+datasets/32frames
+datasets/32frames/*
+datasets/frame_tsv
+datasets/frame_tsv/*
+datasets/mp3_audio
+datasets/mp3_audio/*
