@@ -21,29 +21,33 @@ These downloaded data can be placed or linked to the directory `AVLFormer/datase
 
 
 ## Installation
-In general, the code requires `python>=3.7`, as well as `pytorch>=1.10` and `torchvision>=0.8`. You can follow [recommend_env.sh]('https://github.com/OpenNLPLab/FAVDBench/blob/main/recommend_env.sh) to configure a recommend conda environment:
-1. Install pytorch-related packages:
+In general, the code requires `python>=3.7`, as well as `pytorch>=1.10` and `torchvision>=0.8`. You can follow [`recommend_env.sh`]('https://github.com/OpenNLPLab/FAVDBench/blob/main/recommend_env.sh) to configure a recommend conda environment:
+1. Create virtual env
+```bash
+conda create -n FAVDBench; conda activate FAVDBench
+```
+2. Install pytorch-related packages:
 ```bash
 conda install pytorch==1.12.1 torchvision==0.13.1 torchaudio==0.12.1 cudatoolkit=11.3 -c pytorch
 ```
-2. Install basic packages:
+3. Install basic packages:
 ```bash
 pip install fairscale opencv-python
 pip install deepspeed PyYAML fvcore ete3 transformers pandas timm h5py
 pip install tensorboardX easydict progressbar matplotlib future deprecated scipy av scikit-image boto3 einops addict yapf
 ```
-3. Install mmcv-full
+4. Install mmcv-full
 ```bash
 pip install mmcv-full==1.6.1 -f https://download.openmmlab.com/mmcv/dist/cu113/torch1.12/index.html
 ```
 
-4. Install apex
+5. Install apex
 ```bash
 git clone https://github.com/NVIDIA/apex
 cd apex
 pip install -v --disable-pip-version-check --no-cache-dir ./
 ```
-5. Clone related repo for eval 
+6. Clone related repo for eval 
 ```bash
 cd ./AVLFormer/src/evalcap
 git clone https://github.com/xiaoweihu/cider.git
