@@ -8,7 +8,7 @@ This repository provides the official implementation for the CVPR2023 paper "Fin
 We build a novel task: **FAVD** and a new dataset: **FAVDBench** in this paper.  
 
 <p float="left">
-  <img src="images/task_intro.png?raw=true" width="66.7%" />
+  <img src="images/task_intro.png?raw=true" width="86.7%" />
 </p>
 
 ## Apply for Dataset 
