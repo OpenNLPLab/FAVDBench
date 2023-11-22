@@ -1,4 +1,5 @@
 import argparse
+import base64
 import json
 import multiprocessing as mp
 import os
@@ -6,16 +7,14 @@ import os.path as op
 from pathlib import Path
 import sys
 
+import cv2
 import numpy as np
 from tqdm import tqdm
+from utils import tsv_writer
 
 pythonpath = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 print(pythonpath)
 sys.path.insert(0, pythonpath)
-import base64
-
-import cv2
-from src.utils.tsv_file_ops import tsv_writer
 
 
 def resize_and_to_binary(img_path, target_image_size):
@@ -124,10 +123,7 @@ def main(args):
     # To generate a tsv file:
     # data_path: path to raw video files
     global data_path
-    if args.dataset == "MSRVTT":
-        data_path = f"datasets/MSRVTT-v2/{args.num_frames}frames/"
-    else:
-        data_path = f"datasets/{args.num_frames}frames/"
+    data_path = f"datasets/frames/{args.split}-{args.num_frames}frames"
 
     data = load_tsv_to_mem(f'datasets/metadata/{args.split}.img.tsv')
 

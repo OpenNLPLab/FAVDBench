@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 def get_video_fps(video_file):
     result = subprocess.run([
-        "/opt/homebrew/bin/ffprobe", "-v", "error", "-select_streams", "v", "-of",
+        "/usr/bin/ffprobe", "-v", "error", "-select_streams", "v", "-of",
         "default=noprint_wrappers=1:nokey=1", "-show_entries",
         "stream=r_frame_rate", video_file
     ],
@@ -22,11 +22,12 @@ def get_video_fps(video_file):
 
 def get_video_duration(video_file):
     result = subprocess.run([
-        "/opt/homebrew/bin/ffprobe", "-v", "error", "-show_entries", "format=duration",
+        "/usr/bin/ffprobe", "-v", "error", "-show_entries", "format=duration",
         "-of", "default=noprint_wrappers=1:nokey=1", video_file
     ],
                             stdout=subprocess.PIPE,
                             stderr=subprocess.STDOUT)
+
     return float(result.stdout)
 
 
@@ -49,7 +50,7 @@ def extract_frame_from_video(video_path,
         save_frame_path:
         fps: frame_per_second, default 1
         suppress_msg:
-        other_args: str, other /opt/homebrew/bin/ffmpeg args, such as re-scale to 720p with '-vf scale=-1:720'
+        other_args: str, other /usr/bin/ffmpeg args, such as re-scale to 720p with '-vf scale=-1:720'
 
     Returns:
 
@@ -63,10 +64,10 @@ def extract_frame_from_video(video_path,
         # print(start_ts, end_ts, duration)
         extra_args += f"-ss {start_ts_str} -t {duration} "
     # extra_args2 = " -vf scale=720:-2 "
-    # -preset veryfast:  (upgrade to latest /opt/homebrew/bin/ffmpeg if error)
-    # https://superuser.com/questions/490683/cheat-sheets-and-presets-settings-that-actually-work-with-/opt/homebrew/bin/ffmpeg-1-0
+    # -preset veryfast:  (upgrade to latest /usr/bin/ffmpeg if error)
+    # https://superuser.com/questions/490683/cheat-sheets-and-presets-settings-that-actually-work-with-/usr/bin/ffmpeg-1-0
     if num_frames <= 0:
-        split_cmd_template = "/opt/homebrew/bin/ffmpeg {extra} -i {video_path} -vf fps={fps} {output_frame_path}%06d.jpg"
+        split_cmd_template = "/usr/bin/ffmpeg {extra} -i {video_path} -vf fps={fps} {output_frame_path}%06d.jpg"
 
         cur_split_cmd = split_cmd_template.format(
             extra=extra_args,
@@ -97,7 +98,7 @@ def extract_frame_from_video(video_path,
                 break
         if output_exists:
             return
-        split_cmd_template = "/opt/homebrew/bin/ffmpeg {extra} -i {video_path} -vf fps={frame_rate} {output_frame_path}%04d.jpg"
+        split_cmd_template = "/usr/bin/ffmpeg {extra} -i {video_path} -vf fps={frame_rate} {output_frame_path}%04d.jpg"
 
         cur_split_cmd = split_cmd_template.format(
             extra=extra_args,
@@ -109,7 +110,7 @@ def extract_frame_from_video(video_path,
     try:
         _ = subprocess.run(cur_split_cmd.split(), stdout=subprocess.PIPE)
     except Exception as e:
-        print(f"Error returned by /opt/homebrew/bin/ffmpeg cmd {e}")
+        print(f"Error returned by /usr/bin/ffmpeg cmd {e}")
 
 
 COMMON_VIDEO_ETX = set([

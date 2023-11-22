@@ -9,6 +9,7 @@ src/evalcap/coco-caption/*
 datasets/meta
 datasets/meta/*
 datasets/metadata
+datasets/metadata.zip
 datasets/metadata/*
 datasets/videos
 datasets/videos/*
@@ -18,5 +19,7 @@ datasets/frames
 datasets/frames/*
 datasets/frame_tsv
 datasets/frame_tsv/*
-datasets/mp3_audio
-datasets/mp3_audio/*
+datasets/audio_mp3
+datasets/audio_mp3/*
+datasets/audio_hdf
+datasets/audio_hdf/*
