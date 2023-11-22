@@ -142,7 +142,7 @@ In general, the code requires `python>=3.7`, as well as `pytorch>=1.10` and `tor
 
 
 ## License
-
+The community usage of TransNormerLLM model requires adherence to [Apache 2.0](https://github.com/OpenNLPLab/TransnormerLLM/blob/main/LICENSE). The TransNormerLLM model supports commercial use.
 
 ## Citation
 If you use FAVD or FAVDBench in your research, please use the following BibTeX entry.
