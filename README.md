@@ -92,14 +92,14 @@ In general, the code requires `python>=3.7`, as well as `pytorch>=1.10` and `tor
 
     # check the preparation
     ls datasets
-    >>> audios metadata metadata.zip  videos audios
+    >>> audios metadata videos audios
 
     # data pre-processing
     bash data_prepro/run.sh
 
     # validate the data pre-processing
     ls datasets
-    >>> audios frames  frame_tsv  metadata  metadata.zip  videos
+    >>> audios frames  frame_tsv  metadata videos
 
     ls datasets/frames
     >>> train-32frames test-32frames val-32frames
@@ -137,8 +137,17 @@ In general, the code requires `python>=3.7`, as well as `pytorch>=1.10` and `tor
 |  metadata         | 💻  [metadata.zip](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/metadata.zip) |a16b38f741f6b4daa9e2b50c22e2fdc6|
 |  audio_mp3         | 🎵 [audio_mp3.tar](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/audio_mp3.tar) |e2a3eb49edbb21273a4bad0abc32cda7|
 |  audio_hdf         | 🎵 [audio_hdf.tar](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/audio_hdf.tar) |79f09f444ce891b858cb728d2fdcdc1b|
-|  frames_tsv        | 🎆  [frames_tsv.tar]() |4256841425aed04cde627823c342db21|
+|  frames_tsv        | 🎆 [百度网盘](https://pan.baidu.com/s/1IgnTveov-R1r4yLvdJCgZA?pwd=c17i)  |4256841425aed04cde627823c342db21|
 
+
+
+## Quick Links for Weights
+|                   |                                  URL                                       | md5sum |
+| :---------------: | :----------------------------------------------------------------------------: | :---------------: |
+|  weight         | 🔒  [model.bin]() ||
+|  arguments         | 🧮  [args.json]() |-|
+|  prediction         | ☀️ [prediction_coco_fmt.json]() |-|
+|  metrics         | 🔢  [metrics.log]() |-|
 
 
 ## License
