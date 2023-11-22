@@ -14,8 +14,8 @@ datasets/videos
 datasets/videos/*
 datasets/audios
 datasets/audios/*
-datasets/32frames
-datasets/32frames/*
+datasets/frames
+datasets/frames/*
 datasets/frame_tsv
 datasets/frame_tsv/*
 datasets/mp3_audio
