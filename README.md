@@ -11,6 +11,7 @@ We build a novel task: **FAVD** and a new dataset: **FAVDBench** in this paper.
   <img src="images/task_intro.png?raw=true" width="86.7%" />
 </p>
 
+:smiley: This repository offers the code necessary to replicate the results outlined in the paper. However, we **encourage** you to explore additional tasks using the **FAVDBench dataset**.
 
 ## Table of Content
 - [FAVDBench: Fine-grained Audible Video Description](#favdbench-fine-grained-audible-video-description)
