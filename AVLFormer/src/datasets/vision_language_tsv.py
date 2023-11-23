@@ -6,6 +6,7 @@ Licensed under the MIT license.
 import io
 import json
 import os.path as op
+from pathlib import Path
 
 from PIL import Image
 import av
@@ -50,12 +51,12 @@ class VisionLanguageTSVDataset(object):
         self.tensorizer = tensorizer
 
         self.yaml_file = yaml_file
-        self.root = op.dirname(yaml_file)
+        self.root = Path(op.dirname(yaml_file)).parent.absolute()
 
         self.cfg = load_from_yaml_file(yaml_file)
         self.is_composite = self.cfg.get('composite', False)
         self.cap_linelist_file = find_file_path_in_yaml(
-            self.cfg.get('caption_linelist', None), self.root)
+            self.cfg.get('caption_linelist', None), op.join(self.root, 'metadata'))
 
         # self.cfg =
         # {'caption': 'train.caption.tsv',
@@ -71,7 +72,7 @@ class VisionLanguageTSVDataset(object):
         self.att_mode = args.att_mode
 
         if is_train and args.text_mask_type == 'pos_tag':
-            jfile = open(op.join(self.root, self.cfg.get('ner', None)), 'r')
+            jfile = open(op.join(self.root, 'metadata', self.cfg.get('ner', None)), 'r')
             self.ner = json.load(jfile)
             jfile.close()
 
@@ -85,10 +86,10 @@ class VisionLanguageTSVDataset(object):
         self.visual_tsv = self.get_tsv_file(self.visual_file)
 
         self.label_file = self.cfg.get('label', None)
-        self.label_tsv = self.get_tsv_file(self.label_file)
+        self.label_tsv = self.get_tsv_file(op.join('metadata', self.label_file))
 
         self.cap_file = self.cfg.get('caption', None)
-        self.cap_tsv = self.get_tsv_file(self.cap_file)
+        self.cap_tsv = self.get_tsv_file(op.join('metadata', self.cap_file))
 
         if self.is_composite:
             assert op.isfile(self.cap_linelist_file)
@@ -263,6 +264,8 @@ class VisionLanguageTSVDataset(object):
         if self.is_composite:
             assert self.image_keys[img_idx].endswith(row[0])
         else:
+            if row[0] != self.image_keys[img_idx]:
+                print(row[0], self.image_keys[img_idx])
             assert row[0] == self.image_keys[img_idx]
         return row
 
@@ -306,11 +309,11 @@ class VisionLanguageTSVDataset(object):
     def get_caption_file_in_coco_format(self):
         # for evaluation
         cap_file_coco_format = find_file_path_in_yaml(
-            self.cfg.get('caption_coco_format', None), self.root)
+            self.cfg.get('caption_coco_format', None), op.join(self.root, 'metadata'))
         if cap_file_coco_format:
             return cap_file_coco_format
         test_split = op.basename(self.yaml_file).split('.')[0]
-        return op.join(self.root, test_split + '_caption_coco_format.json')
+        return op.join(self.root, 'metadata', test_split + '_caption_coco_format.json')
 
     def get_captions_by_key(self, key):
         # get a list of captions for image (by key)

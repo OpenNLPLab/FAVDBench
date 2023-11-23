@@ -5,6 +5,7 @@ This is useful when doing distributed training.
 
 import os
 import pickle
+import socket
 
 import torch
 import torch.distributed as dist
@@ -12,72 +13,94 @@ import torch.distributed as dist
 from .logger import LOGGER
 
 
+def setup_for_distributed(is_master):
+    """
+    This function disables printing when not in master process
+    """
+    import builtins as __builtin__
+    builtin_print = __builtin__.print
+
+    def print(*args, **kwargs):
+        force = kwargs.pop('force', False)
+        if is_master or force:
+            builtin_print(*args, **kwargs)
+
+    __builtin__.print = print
+
+
 def dist_init(args):
     ngpus_per_node = torch.cuda.device_count()
 
-    local_rank = int(os.environ['SLURM_LOCALID'])
-    gpu = local_rank
-    port = str(13824)
-    proc_id = int(os.environ['SLURM_PROCID'])
-    ntasks = int(os.environ['SLURM_NTASKS'])
-    node_list = os.environ['SLURM_NODELIST']
-    if '[' in node_list:
-        beg = node_list.find('[')
-        pos1 = node_list.find('-', beg)
-        if pos1 < 0:
-            pos1 = 1000
-        pos2 = node_list.find(',', beg)
-        if pos2 < 0:
-            pos2 = 1000
-        node_list = node_list[:min(pos1, pos2)].replace('[', '')
-    addr = node_list[8:].replace('-', '.')
-    os.environ['MASTER_PORT'] = port
-    os.environ['MASTER_ADDR'] = addr
-    os.environ['WORLD_SIZE'] = str(ntasks)
-    os.environ['RANK'] = str(proc_id)
-    os.environ['LOCAL_RANK'] = str(local_rank)
-    rank = int(os.environ["RANK"])
+    # single gpu
+    if ngpus_per_node == 1:
+        gpu = 0
+        torch.cuda.set_device(gpu)
+        distributed = False
+        args.rank = gpu
+        args.gpu = gpu
+        args.locl_rank = gpu
+        args.world_size = 1
+        args.num_gpus = 1
+        args.device = gpu
+        args.distributed = distributed
+        return
+    
     world_size = int(os.environ['WORLD_SIZE'])
-    dist_url = 'tcp://' + addr + ':' + port
+    rank = int(os.environ['RANK'])
+    gpu = int(os.environ['LOCAL_RANK'])
+    local_rank = int(os.environ['LOCAL_RANK'])
+    dist_url = 'env://'
 
-    args.num_gpus = ntasks
-    args.distributed = ntasks > 1
-    args.local_rank = str(local_rank)
+    # config
+    args.rank = rank
+    args.gpu = gpu
+    args.locl_rank = local_rank
+    args.world_size = world_size
+    args.num_gpus = world_size
+    args.device = gpu
+
+    # multi gpus
+    distributed = True
+    args.distributed = distributed
 
     torch.cuda.set_device(gpu)
+    dist_backend = 'nccl'
 
-    print('distributed init (rank {}): {}, gpu {} | ngpu_node {}'.format(
-        rank, dist_url, gpu, ngpus_per_node),
-          flush=True)
-    dist.init_process_group(backend='nccl',
-                            init_method=dist_url,
-                            world_size=world_size,
-                            rank=rank)
+    # dist init
+    print(
+        f'distributed init (rank {rank}): {dist_url}, gpu {gpu} | ngpu_node {ngpus_per_node}',
+        flush=True)
+    torch.distributed.init_process_group(backend=dist_backend,
+                                         init_method=dist_url)
     torch.distributed.barrier()
-    # setup_for_distributed(rank == 0)
+    setup_for_distributed(rank == 0)
 
 
 def get_world_size():
-    if 'WORLD_SIZE' in os.environ:
-        return int(os.environ['WORLD_SIZE'])
-    return int(os.environ.get('OMPI_COMM_WORLD_SIZE', '1'))
-    # if not dist.is_available():
-    #     return 1
-    # if not dist.is_initialized():
-    #     return 1
-    # return dist.get_world_size()
+    if not is_dist_avail_and_initialized():
+        return 1
+    return dist.get_world_size()
 
 
 def get_rank():
-    if 'RANK' in os.environ:
-        return int(os.environ['RANK'])
-    return int(os.environ.get('OMPI_COMM_WORLD_RANK', '0'))
-    # if not dist.is_available():
-    #     return 0
-    # if not dist.is_initialized():
-    #     return 0
-    # return dist.get_rank()
+    if not is_dist_avail_and_initialized():
+        return 0
+    return dist.get_rank()
 
+
+def is_dist_avail_and_initialized():
+    if not dist.is_available():
+        return False
+    if not dist.is_initialized():
+        return False
+    return True
+
+
+def get_ip():
+    hostname = socket.gethostname()
+    ip = socket.gethostbyname(hostname)
+
+    return ip
 
 def get_local_rank():
     if 'LOCAL_RANK' in os.environ:
