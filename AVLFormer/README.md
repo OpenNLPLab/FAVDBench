@@ -1,25 +1,17 @@
 # FAVDBench: Fine-grained Audible Video Description
 
-**[OpenNLPLab](http://www.avlbench.opennlplab.cn/)**
-
-[[`CVPR2023`]](https://openaccess.thecvf.com/content/CVPR2023/html/Shen_Fine-Grained_Audible_Video_Description_CVPR_2023_paper.html) [[`Project Page`]](http://www.avlbench.opennlplab.cn/papers/favd) [[`arXiv`]](https://arxiv.org/abs/2303.15616) [[`Demo`]](https://www.youtube.com/watch?v=iWJvTB-bTWk&ab_channel=OpenNLPLab)[[`BibTex`]](#Citation) [[`中文简介`]](https://mp.weixin.qq.com/s/_M57ZuOHH0UdwB6i9osqOA) 
-
-This repository provides the official implementation for the CVPR2023 paper "Fine-grained Audible Video Description". 
-We build a novel task: **FAVD** and a new dataset: **FAVDBench** in this paper.  
-
-<p float="left">
-  <img src="images/task_intro.png?raw=true" width="86.7%" />
-</p>
-
-
-## Apply for Dataset 
-
-You can access the FAVDBench dataset by visiting the [OpenNLPLab/Download](http://www.avlbench.opennlplab.cn/download) webpage. To obtain the dataset, please complete the corresponding [Google Forms](https://forms.gle/5S3DWpBaV1UVczkf8). Once we receive your application, we will respond promptly. Alternatively, if you encounter any issues with the form, you can also submit your application (indicating your Name, Affiliation) via email to opennlplab@gmail.com.
-
-* FAVDBench Dataset Google Forms: https://forms.gle/5S3DWpBaV1UVczkf8
-
-These downloaded data can be placed or linked to the directory `AVLFormer/datasets`.
-
+- [FAVDBench: Fine-grained Audible Video Description](#favdbench-fine-grained-audible-video-description)
+  - [Installation](#installation)
+  - [Dataset Preparation](#dataset-preparation)
+  - [Quick Links for Dataset Preparation](#quick-links-for-dataset-preparation)
+  - [Experiments](#experiments)
+    - [Preparation](#preparation)
+    - [Training](#training)
+      - [Load pretrained weights](#load-pretrained-weights)
+      - [Single GPU Training](#single-gpu-training)
+      - [Multiple GPU Training for KUBERNETES cluster](#multiple-gpu-training-for-kubernetes-cluster)
+    - [Inference](#inference)
+  - [Quick Links for Experiments](#quick-links-for-experiments)
 
 ## Installation
 In general, the code requires `python>=3.7`, as well as `pytorch>=1.10` and `torchvision>=0.8`. You can follow [`recommend_env.sh`]('https://github.com/OpenNLPLab/FAVDBench/blob/main/recommend_env.sh) to configure a recommend conda environment:
@@ -160,16 +152,77 @@ FAVDBench/AVLFormer
 |    |   |-- swin_base_patch244_window877_kinetics400_22k.pth
 ```
 
+
 ### Training
 * The [run.sh](./AVLFormer/run.sh) file provides training scripts catered for single GPU, multiple GPUs, and distributed across multiple nodes with GPUs.
 * The [hyperparameters](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/args.json) could be beneficial.
-* For detailed instructions, refer to [this guide](./AVLFormer/README.md).
+
+#### Load pretrained weights
+```bash
+# check whether correct path
+pwd
+>>> FAVDBench/AVLFormer
+
+# command
+python \
+    ./src/tasks/train.py \ 
+    --config ./src/configs/favd_32frm_default.json \
+    --pretrained_checkpoint PATH_TO_FOLDER_THAT_CONATINS_MODEL.BIN \
+    --per_gpu_train_batch_size 2 \
+    --per_gpu_eval_batch_size 2 \
+    --num_train_epochs 150 \
+    --learning_rate 0.0003 \
+    --max_num_frames 32 \
+    --backbone_coef_lr 0.05 \
+    --learn_mask_enabled \
+    --loss_sparse_w 0.5 \
+    --lambda_ 0.1 \
+    --output_dir ./output/favd_default \
+```
+
+
+#### Single GPU Training
+```bash
+python \
+    ./src/tasks/train.py \ 
+    --config ./src/configs/favd_32frm_default.json \
+    --per_gpu_train_batch_size 2 \
+    --per_gpu_eval_batch_size 2 \
+    --num_train_epochs 150 \
+    --learning_rate 0.0003 \
+    --max_num_frames 32 \
+    --backbone_coef_lr 0.05 \
+    --learn_mask_enabled \
+    --loss_sparse_w 0.5 \
+    --lambda_ 0.1 \
+    --output_dir ./output/favd_default \
+```
+
+#### Multiple GPU Training for KUBERNETES cluster
+```bash
+# Provide the appropriate arguments accurately, which can be differently between each cluster!
+
+torchrun --nproc_per_node=${KUBERNETES_CONTAINER_RESOURCE_GPU} \
+    --master_addr=${MASTER_ADDR} \
+    --master_port=${MASTER_PORT} \
+    --nnodes=${WORLD_SIZE} \
+    --node_rank=${RANK} \
+    --config ./src/configs/favd_32frm_default.json \
+    --per_gpu_train_batch_size 2 \
+    --per_gpu_eval_batch_size 2 \
+    --num_train_epochs 150 \
+    --learning_rate 0.0003 \
+    --max_num_frames 32 \
+    --backbone_coef_lr 0.05 \
+    --learn_mask_enabled \
+    --loss_sparse_w 0.5 \
+    --lambda_ 0.1 \
+    --output_dir ./output/favd_default \
+```
 
 ### Inference
 *  The [inference.sh](./AVLFormer/inference.sh) file offers scripts for inferences.
 *  **Attention**: The baseline for inference necessitates both raw video and audio data, which could be found [here](#quick-links-for-dataset-preparation).
-*  For detailed instructions, refer to [this guide](./AVLFormer/README.md).
-
 
 ## Quick Links for Experiments
 |                   |                                  URL                                       | md5sum |
@@ -178,29 +231,3 @@ FAVDBench/AVLFormer
 |  hyperparameters         | 🧮  [args.json](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/args.json) |-|
 |  prediction         | ☀️ [prediction_coco_fmt.json](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/prediction_coco_fmt.json) |-|
 |  metrics         | 🔢  [metrics.log](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/metrics.log) |-|
-
-
-## License
-The community usage of FAVDBench model & code requires adherence to [Apache 2.0](https://github.com/OpenNLPLab/FAVDBench/blob/main/LICENSE). The FAVDBench model & code supports commercial use.
-
-
-## Acknowledgments
-Our project is developed based on the following open source projects:
-- [SwinBERT](https://github.com/microsoft/SwinBERT) for the code baseline.
-- [Video Swin Transformer](https://github.com/SwinTransformer/Video-Swin-Transformer) for video model.
-- [PaSST](https://github.com/kkoutini/PaSST) for audio model.
-
-
-## Citation
-If you use FAVD or FAVDBench in your research, please use the following BibTeX entry.
-
-```
-@InProceedings{Shen_2023_CVPR,
-    author    = {Shen, Xuyang and Li, Dong and Zhou, Jinxing and Qin, Zhen and He, Bowen and Han, Xiaodong and Li, Aixuan and Dai, Yuchao and Kong, Lingpeng and Wang, Meng and Qiao, Yu and Zhong, Yiran},
-    title     = {Fine-Grained Audible Video Description},
-    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-    month     = {June},
-    year      = {2023},
-    pages     = {10585-10596}
-}
-```
