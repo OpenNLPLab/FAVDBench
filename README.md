@@ -12,6 +12,26 @@ We build a novel task: **FAVD** and a new dataset: **FAVDBench** in this paper.
 </p>
 
 
+## Table of Content
+- [FAVDBench: Fine-grained Audible Video Description](#favdbench-fine-grained-audible-video-description)
+  - [Table of Content](#table-of-content)
+  - [Apply for Dataset](#apply-for-dataset)
+  - [Installation](#installation)
+  - [Dataset Preparation](#dataset-preparation)
+  - [Quick Links for Dataset Preparation](#quick-links-for-dataset-preparation)
+  - [Experiments](#experiments)
+    - [Preparation](#preparation)
+    - [Training](#training)
+    - [Inference](#inference)
+  - [Quick Links for Experiments](#quick-links-for-experiments)
+  - [Evaluation](#evaluation)
+    - [AudioScore](#audioscore)
+    - [EntitySore](#entitysore)
+    - [CLIPScore](#clipscore)
+  - [License](#license)
+  - [Acknowledgments](#acknowledgments)
+  - [Citation](#citation)
+
 ## Apply for Dataset 
 
 You can access the FAVDBench dataset by visiting the [OpenNLPLab/Download](http://www.avlbench.opennlplab.cn/download) webpage. To obtain the dataset, please complete the corresponding [Google Forms](https://forms.gle/5S3DWpBaV1UVczkf8). Once we receive your application, we will respond promptly. Alternatively, if you encounter any issues with the form, you can also submit your application (indicating your Name, Affiliation) via email to opennlplab@gmail.com.
