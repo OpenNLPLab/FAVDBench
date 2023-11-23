@@ -133,12 +133,12 @@ In general, the code requires `python>=3.7`, as well as `pytorch>=1.10` and `tor
     * Should you encounter any problems, access [Quick Links for Dataset Preparation](#quick-links-for-dataset-preparation) to download the processed files or initiate a new issue in GitHub.
 
 ## Quick Links for Dataset Preparation 
-|                   |                                  URL                                       | md5sum |
-| :---------------: | :----------------------------------------------------------------------------: | :---------------: |
-|  metadata         | 💻  [metadata.zip](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/metadata.zip) |f03e61e48212132bfd9589c2d8041cb1|
-|  audio_mp3         | 🎵 [audio_mp3.tar](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/audio_mp3.tar) |e2a3eb49edbb21273a4bad0abc32cda7|
-|  audio_hdf         | 🎵 [audio_hdf.tar](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/audio_hdf.tar) |79f09f444ce891b858cb728d2fdcdc1b|
-|  frame_tsv        | 🎆 [Dropbox]() / [百度网盘](https://pan.baidu.com/s/1PMqqdt3dqWniSZWeOcqK9A?pwd=h8ts)  |6c237a72d3a2bbb9d6b6d78ac1b55ba2|
+|           |                                                      URL                                                      |              md5sum              |
+| :-------: | :-----------------------------------------------------------------------------------------------------------: | :------------------------------: |
+| metadata  | 💻  [metadata.zip](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/metadata.zip)  | f03e61e48212132bfd9589c2d8041cb1 |
+| audio_mp3 | 🎵 [audio_mp3.tar](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/audio_mp3.tar) | e2a3eb49edbb21273a4bad0abc32cda7 |
+| audio_hdf | 🎵 [audio_hdf.tar](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/audio_hdf.tar) | 79f09f444ce891b858cb728d2fdcdc1b |
+| frame_tsv |             🎆 [Dropbox]() / [百度网盘](https://pan.baidu.com/s/1PMqqdt3dqWniSZWeOcqK9A?pwd=h8ts)              | 6c237a72d3a2bbb9d6b6d78ac1b55ba2 |
 
 
 ## Experiments
@@ -172,12 +172,47 @@ FAVDBench/AVLFormer
 
 
 ## Quick Links for Experiments
-|                   |                                  URL                                       | md5sum |
-| :---------------: | :----------------------------------------------------------------------------: | :---------------: |
-|  weight         | 🔒  [GitHub](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/model.bin) / [百度网盘](https://pan.baidu.com/s/1fUu7i8PjEH2B_5gw5dFjXg?pwd=b9ns) |5d6579198373b79a21cfa67958e9af83|
-|  hyperparameters         | 🧮  [args.json](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/args.json) |-|
-|  prediction         | ☀️ [prediction_coco_fmt.json](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/prediction_coco_fmt.json) |-|
-|  metrics         | 🔢  [metrics.log](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/metrics.log) |-|
+|                 |                                                                                URL                                                                                 |              md5sum              |
+| :-------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------: |
+|     weight      | 🔒  [GitHub](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/model.bin) / [百度网盘](https://pan.baidu.com/s/1fUu7i8PjEH2B_5gw5dFjXg?pwd=b9ns) | 5d6579198373b79a21cfa67958e9af83 |
+| hyperparameters |                                   🧮  [args.json](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/args.json)                                   |                -                 |
+|   prediction    |                    ☀️ [prediction_coco_fmt.json](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/prediction_coco_fmt.json)                     |                -                 |
+|     metrics     |                                 🔢  [metrics.log](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/metrics.log)                                 |                -                 |
+
+
+## Evaluation
+
+### AudioScore
+* For detailed instructions, refer to [this guide](./Metrics/AudioScore/README.md).
+
+```bash
+cd Metrics/AudioScore
+
+python score.py \
+    --pred_path PATH_to_PREDICTION_JSON_in_COCO_FORMAT \
+```
+**📝Note:** 
+* Additional weights is requried to download, please refer to the [installation](./Metrics/AudioScore/README.md#installation).
+* 
+    |        |                                                 URL                                                 |              md5sum              |
+    | :----: | :-------------------------------------------------------------------------------------------------: | :------------------------------: |
+    | TriLip | 👍 [TriLip.bin](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-metric-score/TriLip.bin) | 6baef8a9b383fa7c94a4c56856b0af6d |
+
+
+### EntitySore
+* For detailed instructions, refer to [this guide](./Metrics/EntityScore/README.md).
+
+```bash
+cd Metrics/EntityScore
+
+python score.py \
+    --pred_path PATH_to_PREDICTION_JSON_in_COCO_FORMAT \
+    --refe_path AVLFormer/datasets/metadata/test.caption_coco_format.json \
+    --model_path t5-base
+```
+
+### CLIPScore
+* Please refer to [CLIPScore](https://github.com/jmhessel/clipscore) to evaluate the model.
 
 
 ## License
@@ -189,6 +224,7 @@ Our project is developed based on the following open source projects:
 - [SwinBERT](https://github.com/microsoft/SwinBERT) for the code baseline.
 - [Video Swin Transformer](https://github.com/SwinTransformer/Video-Swin-Transformer) for video model.
 - [PaSST](https://github.com/kkoutini/PaSST) for audio model.
+- [CLIP](https://github.com/openai/CLIP) for AudioScore model.
 
 
 ## Citation
