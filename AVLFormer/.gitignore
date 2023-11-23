@@ -26,3 +26,6 @@ datasets/audio_hdf/*
 
 # ignore pt models
 models/video_swin_transformer/*.pth
+
+# ignore exp output
+output

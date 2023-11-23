@@ -134,10 +134,10 @@ In general, the code requires `python>=3.7`, as well as `pytorch>=1.10` and `tor
 ## Quick Links for Dataset Preparation 
 |                   |                                  URL                                       | md5sum |
 | :---------------: | :----------------------------------------------------------------------------: | :---------------: |
-|  metadata         | 💻  [metadata.zip](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/metadata.zip) |a16b38f741f6b4daa9e2b50c22e2fdc6|
+|  metadata         | 💻  [metadata.zip](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/metadata.zip) |5f1cc83afb08d8aeb3236cdbbe5f0a2e|
 |  audio_mp3         | 🎵 [audio_mp3.tar](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/audio_mp3.tar) |e2a3eb49edbb21273a4bad0abc32cda7|
 |  audio_hdf         | 🎵 [audio_hdf.tar](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/audio_hdf.tar) |79f09f444ce891b858cb728d2fdcdc1b|
-|  frames_tsv        | 🎆 [百度网盘](https://pan.baidu.com/s/1IgnTveov-R1r4yLvdJCgZA?pwd=c17i)  |4256841425aed04cde627823c342db21|
+|  frame_tsv        | 🎆 [百度网盘](https://pan.baidu.com/s/1PMqqdt3dqWniSZWeOcqK9A?pwd=h8ts)  |6c237a72d3a2bbb9d6b6d78ac1b55ba2|
 
 
 
