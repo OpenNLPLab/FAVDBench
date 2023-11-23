@@ -29,7 +29,7 @@
     "on_memory": true,
     "use_checkpoint": true,
     "num_train_epochs": 150,
-    "learning_rate": 0.0003,
+    "learning_rate": 0.0001,
     "backbone_coef_lr": 0.05,
     "scheduler": "warmup_linear",
     "warmup_ratio": 0.1,

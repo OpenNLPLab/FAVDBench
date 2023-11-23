@@ -171,7 +171,7 @@ python \
     --per_gpu_train_batch_size 2 \
     --per_gpu_eval_batch_size 2 \
     --num_train_epochs 150 \
-    --learning_rate 0.0003 \
+    --learning_rate 0.0001 \
     --max_num_frames 32 \
     --backbone_coef_lr 0.05 \
     --learn_mask_enabled \
@@ -189,7 +189,7 @@ python \
     --per_gpu_train_batch_size 2 \
     --per_gpu_eval_batch_size 2 \
     --num_train_epochs 150 \
-    --learning_rate 0.0003 \
+    --learning_rate 0.0001 \
     --max_num_frames 32 \
     --backbone_coef_lr 0.05 \
     --learn_mask_enabled \
@@ -211,7 +211,7 @@ torchrun --nproc_per_node=${KUBERNETES_CONTAINER_RESOURCE_GPU} \
     --per_gpu_train_batch_size 2 \
     --per_gpu_eval_batch_size 2 \
     --num_train_epochs 150 \
-    --learning_rate 0.0003 \
+    --learning_rate 0.0001 \
     --max_num_frames 32 \
     --backbone_coef_lr 0.05 \
     --learn_mask_enabled \
