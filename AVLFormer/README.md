@@ -125,12 +125,13 @@ In general, the code requires `python>=3.7`, as well as `pytorch>=1.10` and `tor
     * Should you encounter any problems, access [Quick Links for Dataset Preparation](#quick-links-for-dataset-preparation) to download the processed files or initiate a new issue in GitHub.
 
 ## Quick Links for Dataset Preparation 
-|                   |                                  URL                                       | md5sum |
-| :---------------: | :----------------------------------------------------------------------------: | :---------------: |
-|  metadata         | 💻  [metadata.zip](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/metadata.zip) |f03e61e48212132bfd9589c2d8041cb1|
-|  audio_mp3         | 🎵 [audio_mp3.tar](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/audio_mp3.tar) |e2a3eb49edbb21273a4bad0abc32cda7|
-|  audio_hdf         | 🎵 [audio_hdf.tar](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/audio_hdf.tar) |79f09f444ce891b858cb728d2fdcdc1b|
-|  frame_tsv        | 🎆 [Dropbox]() / [百度网盘](https://pan.baidu.com/s/1PMqqdt3dqWniSZWeOcqK9A?pwd=h8ts)  |6c237a72d3a2bbb9d6b6d78ac1b55ba2|
+|                |                                                                                             URL                                                                                             |              md5sum              |
+| :------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------: |
+| meta4raw-video |                                             📼 [meta.zip](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/meta.zip)                                             | 5b50445f2e3136a83c95b396fc69c84a |
+|    metadata    |                                        💻  [metadata.zip](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/metadata.zip)                                         | f03e61e48212132bfd9589c2d8041cb1 |
+|   audio_mp3    |                                        🎵 [audio_mp3.tar](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/audio_mp3.tar)                                        | e2a3eb49edbb21273a4bad0abc32cda7 |
+|   audio_hdf    |                                        🎵 [audio_hdf.tar](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-data-preparation/audio_hdf.tar)                                        | 79f09f444ce891b858cb728d2fdcdc1b |
+|   frame_tsv    | 🎆 [Dropbox](https://www.dropbox.com/scl/fi/7x1tvjqzapw64779ng8kp/frame_tsv.tar?rlkey=1mmnp67c265js8jpqr0s76js9&dl=0) / [百度网盘](https://pan.baidu.com/s/1PMqqdt3dqWniSZWeOcqK9A?pwd=h8ts) | 6c237a72d3a2bbb9d6b6d78ac1b55ba2 |
 
 
 ## Experiments
@@ -145,6 +146,15 @@ Please visit [Video Swin Transformer](https://github.com/SwinTransformer/Video-S
 Download `swin_base_patch244_window877_kinetics400_22k.pth` and `swin_base_patch244_window877_kinetics600_22k.pth`, and place them under `models/video_swin_transformer` directory.
 ```bash
 FAVDBench/AVLFormer
+|-- datasets      (purposes)
+|   |--audios     (raw-data)  
+|   |--audio_hdf  (training, evaluation)
+|   |--audio_mp3  (evaluation, inference)
+|   |--frame_tsv  (training)
+|   |--frames     (evaluation)
+|   |--meta       (raw-data)
+|   |--metadata   (training)
+|   |--videos     (raw-data, inference)
 |-- models  
 |   |--captioning/bert-base-uncased
 |   |-- video_swin_transformer
@@ -225,9 +235,9 @@ torchrun --nproc_per_node=${KUBERNETES_CONTAINER_RESOURCE_GPU} \
 *  **Attention**: The baseline for inference necessitates both raw video and audio data, which could be found [here](#quick-links-for-dataset-preparation).
 
 ## Quick Links for Experiments
-|                   |                                  URL                                       | md5sum |
-| :---------------: | :----------------------------------------------------------------------------: | :---------------: |
-|  weight         | 🔒  [GitHub](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/model.bin) / [百度网盘](https://pan.baidu.com/s/1fUu7i8PjEH2B_5gw5dFjXg?pwd=b9ns) |5d6579198373b79a21cfa67958e9af83|
-|  hyperparameters         | 🧮  [args.json](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/args.json) |-|
-|  prediction         | ☀️ [prediction_coco_fmt.json](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/prediction_coco_fmt.json) |-|
-|  metrics         | 🔢  [metrics.log](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/metrics.log) |-|
+|                 |                                                                                URL                                                                                 |              md5sum              |
+| :-------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------: |
+|     weight      | 🔒  [GitHub](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/model.bin) / [百度网盘](https://pan.baidu.com/s/1fUu7i8PjEH2B_5gw5dFjXg?pwd=b9ns) | 5d6579198373b79a21cfa67958e9af83 |
+| hyperparameters |                                   🧮  [args.json](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/args.json)                                   |                -                 |
+|   prediction    |                    ☀️ [prediction_coco_fmt.json](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/prediction_coco_fmt.json)                     |                -                 |
+|     metrics     |                                 🔢  [metrics.log](https://github.com/OpenNLPLab/FAVDBench/releases/download/r-pt-model/metrics.log)                                 |                -                 |
