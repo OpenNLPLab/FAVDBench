@@ -48,7 +48,7 @@ python score.py \
     --pred_path PATH_to_PREDICTION_JSON_in_COCO_FORMAT \
 ```
 **📝Note:** 
-* `Prediction` is requried to be converted into coco format.
+* `Prediction` is requried to be converted into [coco format](../README.md#coco-format).
 * Default path to store results locates in `output` directory.
 
 ### Example

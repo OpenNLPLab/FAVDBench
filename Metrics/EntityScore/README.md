@@ -36,7 +36,7 @@ python score.py \
     --model_path t5-base
 ```
 **📝Note:** 
-* `Prediction` is requried to be converted into coco format.
+* `Prediction` is requried to be converted into [coco format](../README.md#coco-format).
 
 ### Example
 
