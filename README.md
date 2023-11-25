@@ -1,7 +1,7 @@
 # FAVDBench: Fine-grained Audible Video Description
 
 <p align="center">
-🏠 <a href="http://www.avlbench.opennlplab.cn/" target="_blank">OpenNLPLab</a> •
+🏠 <a href="https://github.com/OpenNLPLab/FAVDBench" target="_blank">GitHub</a> •
 🤗 <a href="https://huggingface.co/datasets/OpenNLPLab/FAVDBench" target="_blank">Hugging Face</a> •
 🤖 <a href="https://openxlab.org.cn/datasets/OpenNLPLab/FAVDBench" target="_blank">OpenDataLab</a> •
 💬 <a href="https://forms.gle/5S3DWpBaV1UVczkf8" target="_blank">Apply Dataset</a> 
