@@ -229,7 +229,7 @@ python score.py \
     --pred_path PATH_to_PREDICTION_JSON_in_COCO_FORMAT \
 ```
 **📝Note:** 
-* Additional weights is requried to download, please refer to the [installation](./Metrics/AudioScore/README.md#installation).
+* Additional weights is required to download, please refer to the [installation](./Metrics/AudioScore/README.md#installation).
 * 
     |        |                                                 URL                                                 |              md5sum              |
     | :----: | :-------------------------------------------------------------------------------------------------: | :------------------------------: |
