@@ -41,7 +41,7 @@ We build a novel task: **FAVD** and a new dataset: **FAVDBench** in this paper.
 
 ## Apply for Dataset 
 
-You can access the FAVDBench dataset by visiting the [OpenNLPLab/Download](http://www.avlbench.opennlplab.cn/download) webpage. To obtain the dataset, please complete the corresponding [Google Forms](https://forms.gle/5S3DWpBaV1UVczkf8). Once we receive your application, we will respond promptly. Alternatively, if you encounter any issues with the form, you can also submit your application (indicating your Name, Affiliation) via email to opennlplab@gmail.com.
+You can access the FAVDBench dataset by visiting the [OpenNLPLab/Download](http://www.avlbench.opennlplab.cn/download) webpage. To obtain the dataset, please complete the corresponding [Google Forms](https://forms.gle/5S3DWpBaV1UVczkf8). Once we receive your application, we will respond promptly. Alternatively, if you encounter any issues with the form, you can also submit your application (indicating your Name, Affiliation) via email to opennlplab@gmail.com. (Kindly review both your **inbox** and **spam** folder for the access e-mail!)
 
 * FAVDBench Dataset Google Forms: https://forms.gle/5S3DWpBaV1UVczkf8
 
